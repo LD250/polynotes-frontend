@@ -18,11 +18,42 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </style>
     <div>Hello from <span>{{foo}}</span></div>
+    <div class="top">{{top}}</div>
+    <div class="bottom">{{bottom}}</div>
   </template>
   <script>
   (function() {
     'use strict';
-
+    class Polynote {
+      beforeRegister() {
+        this.is = 'poly-note';
+        this.properties = {
+          top: {
+            type: String,
+            value: ''
+          },
+          bottom: {
+            type: String,
+            value: ''
+          },
+          foo: {
+            type: String,
+            value: 'poly-note foo',
+            notify: true
+          },
+        };
+      }
+      created() {}
+      ready() {
+        this.top = this.top.toUpperCase();
+        this.bottom = this.bottom.toUpperCase();
+      }
+      attached() {}
+      detached() {}
+      attributeChanged() {}
+    }
+    Polymer(Polynote);
+    /*
     Polymer({
       is: 'poly-note',
 
@@ -34,6 +65,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       }
     });
+    */
   })();
   </script>
 </dom-module>
