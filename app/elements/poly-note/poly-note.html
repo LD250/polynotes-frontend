@@ -9,6 +9,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-input/paper-textarea.html">
 
 <dom-module id="poly-note">
   <template>
@@ -17,9 +18,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: block;
       }
     </style>
-    <div>Hello from <span>{{foo}}</span></div>
-    <div class="top">{{top}}</div>
-    <div class="bottom">{{bottom}}</div>
+    <paper-textarea label="{{ title }}">{{ note }}</paper-textarea>
   </template>
   <script>
   (function() {
@@ -28,44 +27,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       beforeRegister() {
         this.is = 'poly-note';
         this.properties = {
-          top: {
+          title: {
             type: String,
             value: ''
           },
-          bottom: {
+          note: {
             type: String,
             value: ''
-          },
-          foo: {
-            type: String,
-            value: 'poly-note foo',
-            notify: true
-          },
+          }
         };
       }
       created() {}
-      ready() {
-        this.top = this.top.toUpperCase();
-        this.bottom = this.bottom.toUpperCase();
-      }
       attached() {}
       detached() {}
       attributeChanged() {}
     }
     Polymer(Polynote);
-    /*
-    Polymer({
-      is: 'poly-note',
-
-      properties: {
-        foo: {
-          type: String,
-          value: 'poly-note',
-          notify: true
-        }
-      }
-    });
-    */
   })();
   </script>
 </dom-module>
