@@ -1,5 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../poly-note/poly-note.html">
 
 <dom-module id="polynotes-list">
@@ -10,9 +11,18 @@
       }
     </style>
     <div>Hello from <span>{{foo}}</span></div>
-    <paper-material elevation="1">
-      <poly-note></poly-note>
-    </paper-material>
+    <iron-ajax
+      auto
+      url="https://api.github.com/repos/LD250/jenkins-cli-python/issues"
+      handle-as="json"
+      last-response="{{ response }}">
+    </iron-ajax>
+    <template is="dom-repeat" items="{{response}}">
+      <paper-material elevation="1">
+        <poly-note title="{{ item.title }}", body="{{ item.body }}"></poly-note>
+      </paper-material>
+      <br/>
+    </template>
   </template>
   <script>
   (function() {

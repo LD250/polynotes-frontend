@@ -18,7 +18,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: block;
       }
     </style>
-    <paper-textarea label="{{ title }}">{{ note }}</paper-textarea>
+    <paper-textarea
+      rows=5
+      alwaysFloatLabel=1
+      label="{{ title }}"
+      value="{{ body }}">
+    </paper-textarea>
   </template>
   <script>
   (function() {
@@ -31,7 +36,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             type: String,
             value: ''
           },
-          note: {
+          body: {
             type: String,
             value: ''
           }
