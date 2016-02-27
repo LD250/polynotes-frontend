@@ -32,6 +32,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       next();
     }
 
+    function setFocus(selected){
+      document.querySelector('section[data-route="' + selected + '"]').focus();
+    }
+
     // Routes
     page('*', scrollToTop, closeDrawer, function(ctx, next) {
       next();
@@ -39,23 +43,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     page('/', () => {
       app.route = 'home';
+      setFocus(app.route);
     });
 
     page('/notes', () => {
       app.route = 'notes';
+      setFocus(app.route);
     });
 
     page(app.baseUrl, () => {
       app.route = 'home';
+      setFocus(app.route);
     });
 
     page('/users', () => {
       app.route = 'users';
+      setFocus(app.route);
     });
 
     page('/users/:name', data => {
       app.route = 'user-info';
       app.params = data.params;
+      setFocus(app.route);
     });
 
     page('/contact', () => {
@@ -64,6 +73,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     page('/books', () => {
       app.route = 'books';
+      setFocus(app.route);
     });
 
     // 404

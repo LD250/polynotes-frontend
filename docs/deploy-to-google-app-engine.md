@@ -22,8 +22,9 @@ The scripts below are based on the [Using Static Files guide](https://cloud.goog
 
 1.  Create a new GCP project using the [Developers Console](https://console.developers.google.com/home/dashboard)
 
-1.  Add app.yaml to your project root folder
+1.  Add `app.yaml` to your project root folder
 
+    ```yaml
         runtime: python27
         api_version: 1
         threadsafe: yes
@@ -53,26 +54,16 @@ The scripts below are based on the [Using Static Files guide](https://cloud.goog
         
         skip_files:
         - ^(.*/)?app\.yaml
-        - ^(.*/)?app\.yml
-        - ^(.*/)?index\.yaml
-        - ^(.*/)?index\.yml
-        - ^(.*/)?bower\.json
-        - ^(.*/)?#.*#
-        - ^(.*/)?.*~
-        - ^(.*/)?.*\.py[co]
-        - ^(.*/)?.*/RCS/.*
-        - ^(.*/)?\..*
-        - ^(.*/)?.*\.bak$
-        - ^(.*/)?node_modules/.*
-        - ^(.*/).md|markdown
-        - ^(.*/)LICENSE
+    ```
 
     This is the configuration file for the GCP project.
     It sets a python runtime environment and static file handlers.
     The configuration utilizes GAE HTTP/2 capabilities in order to minimize load time for HTTP/2 compatible browsers.
+    Please note : this also ensures https, if you wish to use custom domains supporting http only you will need to remove all the 'secure: always’ entries.​
 
 1.  Add a bash script to build & deploy the application
 
+    ```sh
         #!/usr/bin/env bash
         
         GAE_PROJECT=psk
@@ -80,7 +71,7 @@ The scripts below are based on the [Using Static Files guide](https://cloud.goog
         
         if [ -z "$DEPLOY_VERSION" ]
         then
-          TAG=`git describe`
+      TAG=`git describe --abbrev=0`
           # GAE doesn't allow periods
           DEPLOY_VERSION=${TAG//.}
         fi
@@ -92,6 +83,7 @@ The scripts below are based on the [Using Static Files guide](https://cloud.goog
         
         echo "Deploying $DEPLOY_VERSION"
         gcloud preview app deploy dist/app.yaml --project $GAE_PROJECT --promote --version $DEPLOY_VERSION
+    ```
 
     You have to set `GAE_PROJECT` variable to your GAE project id.
     A deploy version can be provided as a parameter for the script, if not provided the latest git tag will be used.
