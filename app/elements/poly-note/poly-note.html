@@ -20,10 +20,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
     <paper-textarea
       rows=5
-      alwaysFloatLabel=1
+      alwaysFloatLabel=true
       label="{{ title }}"
+      on-input="autosave"
       value="{{ body }}">
     </paper-textarea>
+    <div>{{ lastChanged }}</div>
   </template>
   <script>
   (function() {
@@ -36,6 +38,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             type: String,
             value: ''
           },
+          lastChanged: {
+            type: Date,
+            value: 0
+          },
           body: {
             type: String,
             value: ''
@@ -45,6 +51,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       created() {}
       attached() {}
       detached() {}
+      autosave(e) {
+        /*if (e.timeStamp - this.lastChanged > 5000){
+
+        }*/
+        this.lastChanged = e.timeStamp;
+        console.log(e)
+      }
       attributeChanged() {}
     }
     Polymer(Polynote);
